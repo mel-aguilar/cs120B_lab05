@@ -25,7 +25,7 @@ int main(void) {
     /* Insert your solution below */
     while (1) {
 	//PORTB = 0x0F; //Writes port B's 8 pins with 00001111
-	   button ~= PINA & 0x01;
+	   button = ~PINA & 0x01;
 	if (button) {
 		led = (led & 0xFC) | 0x01;
 	}

@@ -13,23 +13,37 @@
 #endif
 
 int main(void) {
-	/* Insert DDR and PORT initializations */
-	DDRA = 0x00;	PORTA = 0xFF;	//configure port A as input, initialize to 11111111
-	DDRB = 0xFF;	PORTB = 0x00; //Configure port B's to 8 pins as outputs, initialize to 00000000
-	
-	unsigned char led = 0x00;
-	unsigned char button = 0x00;
-	
-	/* Insert your solution below */
-	while (1) {
-		//PORTB = 0x0F; //Writes port B's 8 pins with 00001111
-		button = PINA  & 0x01;
-		if (button) {
-			led = (led & 0xFC) | 0x01;
-		}
-		else {
-			led = (led & 0xFC) | 0x02;
-		}
-		PORTB = led;
-	}
-}
+    /* Insert DDR and PORT initializations */
+    DDRA = 0x00; PORTA = 0xFF; //input 
+    //DDRB = 0x00; PORTB = 0xFF; //input
+    DDRC = 0xFF; PORTC = 0x00; //output
+
+    unsigned char input = 0x00;
+    unsigned char led = 0x00;
+
+    while(1) {
+      input = PINA;
+
+      if(input == 0x01 || input == 0x02) {
+        led = 0x60;
+      }
+      else if(input == 0x03 || input == 0x04) {
+        led = 0x70;
+      }
+      else if(input == 0x05 || input == 0x06) {
+        led = 0x38;
+      }
+      else if(input == 0x07 || input == 0x08 || input == 0x09) {
+        led = 0x3C;
+      }
+      else if(input == 0x0A || input == 0x0B || input == 0x0C) {
+        led = 0x3E;
+      }
+      else if(input == 0x0D || input == 0x0E || input == 0x0F) {
+        led = 0x3F;
+      }
+      PORTC = led;
+    }
+    return 1;
+ }
+
